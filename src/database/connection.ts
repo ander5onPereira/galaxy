@@ -11,6 +11,7 @@ export function openDatabase() {
       },
     };
   }
-  const db = SQLite.openDatabase("db.db");
+
+  const db = SQLite.openDatabase("galaxy.db");
   return db;
 }

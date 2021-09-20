@@ -8,4 +8,5 @@ export async function CreateDataBase() {
       "create table if not exists items (id integer primary key not null, nome text, sobrenome text,email text,pis text);"
     );
   });
+  this.fetchData();
 }
