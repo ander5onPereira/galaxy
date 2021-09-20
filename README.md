@@ -30,7 +30,7 @@ Todos os dados salvos no aplicativo são mantido localmente com auxilio do SQLit
 
 ## 🚀 Como executar
 
-- Baixe e instale seu dispositivo mobile o `Expo Go` obtido direto nas loja digital `PlayStory`.
+- Baixe e instale seu dispositivo mobile o `Expo Go` obtido direto nas loja digital `PlayStore`.
 - Clone o repositório
 - Instale os recursos do `Expo-cli`
   > npm install --global expo-cli 
