@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="PorterFlix" title="PorterFlix" src=".github/logo.png" width=40%/>
+  <img alt="Galaxy" title="Galaxy" src=".github/logo.png" width=40%/>
 </h1>
 
 <p align="center">
@@ -20,12 +20,11 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [React Native](https://reactnative.dev/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Expo](https://expo.io/)
-- [Sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
 
 ## 💻 Projeto
 
 O aplicativo desenvolvido para realizar o cadastro de funcionários com seus principais dados, sendo (nome, sobrenome, email, número do NIS (PIS)).
-Todos os dados salvos no aplicativo são mantido localmente com auxilio do SQLite.
+Todos os dados salvos no aplicativo são mantido localmente.
 
 
 ## 🚀 Como executar

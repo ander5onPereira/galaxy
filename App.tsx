@@ -1,14 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback } from "react";
+import React, { useEffect } from "react";
 import { Routes } from "./src/routes";
-
-import { CreateDataBase } from "./src/database/createDataBase";
+import * as Updates from "expo-updates";
+import { IS_PRODUCTION } from "./config";
 
 export default function App() {
-  useCallback(() => {
-    CreateDataBase();
+  async function UpdateApp() {
+    try {
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  useEffect(() => {
+    IS_PRODUCTION ? UpdateApp() : null;
   }, []);
-
   return (
     <>
       <Routes />

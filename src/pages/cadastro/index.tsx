@@ -1,14 +1,14 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Image, StyleSheet, View, Keyboard } from "react-native";
+import { Image, StyleSheet, View, Keyboard, AsyncStorage } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 import Card from "../../img/Card/Card.png";
 import * as Yup from "yup";
 
-import { add, update, del } from "../../database/database";
 import Button from "../../components/Button";
 import { Message } from "../../components/Message";
 import { showToastWithGravity } from "../../components/AlertMenssage";
+import uuid from "react-native-uuid";
 
 export default function Cadastro({ route, navigation }) {
   const [id, setId] = useState(route.params?.id);
@@ -19,7 +19,6 @@ export default function Cadastro({ route, navigation }) {
     !route.params.pis ? "" : String(route.params?.pis)
   );
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(null);
   const [messageCard, setMessageCard] = useState("");
 
   const refInputNome = useRef(null);
@@ -27,16 +26,19 @@ export default function Cadastro({ route, navigation }) {
   const refInputEmail = useRef(null);
   const refInputPis = useRef(null);
 
-  function apagar() {
+  async function apagar() {
     Keyboard.dismiss();
-    del(Number(id), setError);
-    if (error === null) {
-      setMessageCard("SUCCESS");
-      setMessage("Excluido");
-    } else {
-      setMessageCard("FAILL");
-      setMessage(`Operação não ${"\n"}pode ser realizada`);
-    }
+    const jsonValue = JSON.parse(await AsyncStorage.getItem("@galaxy"));
+    const data = jsonValue.filter((value) => {
+      if (value.id != id) {
+        return value;
+      }
+    });
+    const jsonSave = JSON.stringify(data);
+    await AsyncStorage.setItem("@galaxy", jsonSave);
+
+    setMessageCard("SUCCESS");
+    setMessage("Excluido");
   }
   async function save() {
     Keyboard.dismiss();
@@ -65,11 +67,30 @@ export default function Cadastro({ route, navigation }) {
         }
       );
       if (id) {
-        update({ id, nome, sobrenome, email, pis }, setError);
+        var jsonValue = JSON.parse(await AsyncStorage.getItem("@galaxy"));
+        jsonValue.filter((value) => {
+          if (value.id == id) {
+            value.nome = nome;
+            value.sobrenome = sobrenome;
+            value.email = email;
+            value.pis = pis;
+          }
+        });
+
+        const jsonSave = JSON.stringify(jsonValue);
+        await AsyncStorage.setItem("@galaxy", jsonSave);
+
         setMessage("Atualizado");
         setMessageCard("SUCCESS");
       } else {
-        add({ nome, sobrenome, email, pis }, setError);
+        const value = await AsyncStorage.getItem("@galaxy");
+
+        const jsonValue = value ? JSON.parse(value) : [];
+        const date = { id: uuid.v4(), nome, sobrenome, email, pis };
+        jsonValue.push(date);
+        const jsonSave = JSON.stringify(jsonValue);
+        await AsyncStorage.setItem("@galaxy", jsonSave);
+
         setMessage("Salvo");
         setMessageCard("SUCCESS");
       }
@@ -82,6 +103,7 @@ export default function Cadastro({ route, navigation }) {
         showToastWithGravity(text);
       } else {
         setMessageCard("FAILL");
+        console.log(err);
         setMessage(`Operação não ${"\n"}pode ser realizada`);
       }
     }

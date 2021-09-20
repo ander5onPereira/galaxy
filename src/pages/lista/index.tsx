@@ -1,21 +1,22 @@
-import React, { useMemo, useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, StyleSheet, AsyncStorage } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import ItemList from "../../components/ItemList";
 import Loading from "../../components/Loading";
 
-import { list } from "../../database/database";
-
 export default function Lista({ route }) {
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useMemo(() => {
-    list(setRepositories, setError);
-    setLoading(false);
+  useEffect(() => {
+    carregar();
   }, [repositories]);
 
+  async function carregar() {
+    const jsonValue = await AsyncStorage.getItem("@galaxy");
+    setRepositories(JSON.parse(jsonValue));
+    setLoading(false);
+  }
   if (loading) {
     return <Loading />;
   }
