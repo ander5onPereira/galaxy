@@ -26,6 +26,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 O aplicativo desenvolvido para realizar o cadastro de funcionários com seus principais dados, sendo (nome, sobrenome, email, número do NIS (PIS)).
 Todos os dados salvos no aplicativo são mantido localmente.
 
+Para realizar o downloado do app para android [clique aqui](https://drive.google.com/file/d/1_GoV8uHYMpeo44MDiSReNRutywoWLmXa/view?usp=sharing)
 
 ## 🚀 Como executar
 
