@@ -1,11 +1,36 @@
 {
+  "name": "galaxy",
+  "displayName": "galaxy",
   "expo": {
     "name": "galaxy",
     "slug": "galaxy",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F181C"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "name": "galaxy"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.arpdev.galaxy",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "br.com.arpdev.galaxy",
+      "versionCode": 1,
+      "permissions": []
+    }
+  }
 }
